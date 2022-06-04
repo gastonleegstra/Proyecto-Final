@@ -1,4 +1,5 @@
 from datetime import date
+from symtable import Class
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -8,12 +9,18 @@ class Capacidad(models.Model):
     # medida: medida de medida litros o mililitros
     # activo: activo o no
     
+    class Meta:
+        verbose_name_plural = 'Capacidades'
+    
     volumen = models.IntegerField(null=True,blank=True)
     class Medidas(models.TextChoices):
         lts='lts', _('lts')
         ml = 'ml', _('ml')
     medida = models.CharField(max_length=3,choices=Medidas.choices,null=True,blank=True) 
     activo = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.volumen)+' '+self.medida
 
 class Precio(models.Model):
     # Price:
@@ -22,8 +29,11 @@ class Precio(models.Model):
     # activo: activo o no
 
     precio = models.FloatField(null=True,blank=True)
-    fecha_alta = models.DateField(default=date.today())
+    fecha_alta = models.DateField(default=date.today(),null=True,blank=True)
     activo = models.BooleanField(default=True)
+
+    def __str__(self):
+        return "{:.2f}{}".format(self.precio,' Pesos')
 
 class Envase(models.Model):
     # Envase:
@@ -35,8 +45,11 @@ class Envase(models.Model):
         botella ='Botella', _('Botella')
         lata = 'Lata', _('Lata')   
     tipo = models.CharField(max_length=7,choices=Tipo.choices,null=True,blank=True)
-    capacidad = models.OneToOneField(Capacidad,on_delete=models.CASCADE,primary_key=True)
+    capacidad = models.OneToOneField(Capacidad,on_delete=models.CASCADE)
     activo = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.tipo + ' '+ str(self.capacidad)
 
 class Cerveza(models.Model):
     # Cerveza:
@@ -52,7 +65,7 @@ class Cerveza(models.Model):
     descripcion = models.TextField(max_length=500,null=True,blank=True)
     abv = models.IntegerField(null=True,blank=True)
     ibu = models.FloatField(null=True,blank=True)
-    precio = models.OneToOneField(Precio,on_delete=models.CASCADE,primary_key=True)
+    precio = models.ForeignKey(Precio,on_delete=models.CASCADE,null=True)
     class Brew (models.TextChoices):
         ale = 'Ale', _('Ale')
         lager = 'Lager', _('Lager')
@@ -62,8 +75,11 @@ class Cerveza(models.Model):
         black = 'Black', _('Black')   
     brew =models.CharField(max_length=5,choices=Brew.choices, null=True,blank=True)
     color = models.CharField(max_length=6,choices=Color.choices, null=True,blank=True)
-    envase = models.ForeignKey(Envase, on_delete=models.CASCADE)
+    envase = models.ForeignKey(Envase, on_delete=models.CASCADE,null=True)
     activo = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.nombre
 
 
 

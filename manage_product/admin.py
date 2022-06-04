@@ -1,5 +1,5 @@
 from django.contrib import admin
-from manage_product.models import Capacidad, Cerveza, Envase, Precio
+from manage_product.models import Capacidad, Cerveza,Envase, Precio
 
 # Register your models here.
 admin.site.register(Cerveza)

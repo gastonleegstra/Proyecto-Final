@@ -1,0 +1,11 @@
+.container-db{
+    background: gray;
+    display: flex;
+}
+.container-db form{
+    margin: 10px 10px;
+    border: 2px solid;
+    border-radius: 5%;
+    height: fit-content;
+    padding: 10px 10px;
+}
