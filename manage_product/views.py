@@ -5,6 +5,9 @@ from manage_product.forms import Cerveza_Form, Envase_Form, Capacidad_Form, Prec
 from manage_product.models import Cerveza
 
 # Create your views here.
+
+def index(request):
+    return render(request, 'index.html')
 def crear_capacidad(request):
     form = Capacidad_Form()
     context = {

@@ -11,6 +11,7 @@
   <body>
     <header class="sticky-sm-top">
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+          <a class="navbar-brand" href="/">Inicio</a>
             <div class="container-fluid">
               <a class="navbar-brand me-lg-5 pe-lg-5" href="#">
                 <img src="{% static 'images/logo.png' %}" alt="" width="74" height="67" class="d-inline-block align-text-top">
@@ -19,18 +20,18 @@
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mt-2 mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Tienda</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link">Nosotros</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link">Contacto</a>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="productos/registrar-capacidad">Crear Capacidad</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/productos/registrar-cerveza">Crear Capacidad</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/productos/registrar-envase">Crear Envase</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/productos/registrar-precio ">Crear Precio</a>
                   </li>
                 </ul>
                 <form class="d-flex mt-2" role="search">
