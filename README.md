@@ -12,9 +12,8 @@
 
 **Tabla de Contenidos**
 
-####Pasos para ejecución
-                
-1. Registrar Capacidad
-2. Registrar Envase
-3. Registrar Precio
-4. Registrar Cerveza
+Pasos para ejecución            
+  1. Registrar Capacidad
+  2. Registrar Envase
+  3. Registrar Precio
+  4. Registrar Cerveza
