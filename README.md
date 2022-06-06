@@ -12,12 +12,6 @@
 
 **Tabla de Contenidos**
 
-[TOCM]
-
-[TOC]
-
-
-
 ####Pasos para ejecución
                 
 1. Registrar Capacidad
