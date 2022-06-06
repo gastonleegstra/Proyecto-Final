@@ -112,3 +112,9 @@ def gestion_peñon(request):
         'cervezas' : cervezas
     }
     return render(request,'gestion_peñon.html',context)
+
+def busqueda_productos_view(request): 
+    print(request.GET)
+    cervezas = Cerveza.objects.filter(nombre__icontains = request.GET['search'])
+    context = {'cervezas':cervezas}
+    return render(request, 'busqueda_productos.html', context= context)
