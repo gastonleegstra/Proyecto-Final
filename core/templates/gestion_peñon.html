@@ -1,0 +1,23 @@
+{% extends 'base_dashboard.html' %}
+
+{% block content %}
+<section class="container mt-3">
+  <form class="d-flex mt-2" role="search">
+    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+    <button class="btn btn-success" type="submit">Buscar</button>
+  </form>
+  <div class="grid" style="--bs-columns: 3;">
+      {% for cerveza in cervezas %}
+      <div class="card mt-1" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="{{cerveza.nombre}}">
+          <div class="card-body">
+            <h5 class="card-title">{{cerveza.nombre}}</h5>
+            <p class="card-text">{{cerveza.descripcion}}</p>
+            <h5 class="card-title">{{cerveza.precio}}</h5>
+            <a href="#" class="btn btn-primary">Ver Mas</a>
+          </div>
+        </div>
+      {% endfor %}
+  </div>
+</section>
+{% endblock content %}

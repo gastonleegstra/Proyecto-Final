@@ -8,6 +8,7 @@ from manage_product.models import Cerveza
 
 def index(request):
     return render(request, 'index.html')
+
 def crear_capacidad(request):
     form = Capacidad_Form()
     context = {
@@ -44,5 +45,8 @@ def listar_cervezas(resquest):
     return render(resquest,'list_cervezas.html',context)
 
 def gestion_peñon(request):
-    context = {}
-    return render(request,'base_dashboard.html',context)
+    cervezas = Cerveza.objects.all()
+    context = {
+        'cervezas' : cervezas
+    }
+    return render(request,'gestion_peñon.html',context)
