@@ -34,9 +34,9 @@
                       <a class="nav-link" href="#">Contacto</a>
                   </li>
                 </ul>
-                <form class="d-flex mt-2" role="search">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
+                <form class="d-flex mt-2" action="busqueda_productos" method="GET">
+                  <input class="form-control me-2" type="text" placeholder="Nombre del producto" name='search' aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Buscar</button>
                 </form>
                     <a class="btn btn-outline-primary mt-2 ms-2 me-2" href="{% url 'gestion-peñon' %}">Login</a>
                     <button type="button" class="btn btn-outline-warning mt-2">Sign-up</button>
