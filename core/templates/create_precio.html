@@ -9,5 +9,38 @@
         {{form.as_table}}
     </table>
     <input class="btn btn-primary" type="submit" value="Guardar">
-</form>     
+</form>
+<div>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Fecha Alta</th>
+            <th scope="col">Activo</th>
+            <th scope="col-2">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for precio in precios %}
+          <tr>
+              <th scope="col">{{precio.id}}</th>
+              <td scope="col">{{precio.precio}}</td>        
+              <td scope="col">{{precio.fecha_alta}}</td>
+              <td scope="col">
+              {% if precio.activo == True  %}
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+              {% else %}
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              {% endif %}    
+              </td>
+              <td>
+                <a class="btn btn-primary" href="#" role="button">Editar</a>
+                <a class="btn btn-danger" href="#" role="button">Eliminar</a>
+              </td>
+              {% endfor %}
+          </tr>    
+        </tbody>
+      </table>
+</div>     
 {% endblock content %}
