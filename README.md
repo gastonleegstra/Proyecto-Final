@@ -23,4 +23,5 @@ Para acceder a la Gestión:
       2. Registrar Envase
       3. Registrar Precio
       4. Registrar Cerveza
-  3. Busqueda en la pagina principal
+  3. Para volver a la pagina principal a traves de la opcion Sign Out en Account
+  4. Busqueda en la pagina principal
