@@ -14,6 +14,7 @@ Busqueda: Se realiza en la pagina principal
 
 
 **Tabla de Contenidos**
+
 Para acceder a la Gestión: 
   1. A traves del Boton Login 
   2. En la opción Productos
