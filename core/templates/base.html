@@ -21,9 +21,6 @@
               </button>
               <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Tienda</a>
                     </li>
@@ -34,8 +31,8 @@
                       <a class="nav-link" href="#">Contacto</a>
                   </li>
                 </ul>
-                <form class="d-flex mt-2" action="busqueda_productos" method="GET">
-                  <input class="form-control me-2" type="text" placeholder="Nombre del producto" name='search' aria-label="Search">
+                <form class="d-flex mt-2" action="{% url 'busqueda_productos_view' %}" method="GET">
+                  <input class="form-control me-2" type="text" placeholder="Nombre del producto" id="search" name="search" aria-label="Search">
                   <button class="btn btn-outline-success" type="submit">Buscar</button>
                 </form>
                     <a class="btn btn-outline-primary mt-2 ms-2 me-2" href="{% url 'gestion-peñon' %}">Login</a>

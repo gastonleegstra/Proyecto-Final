@@ -7,7 +7,11 @@ from manage_product.models import Capacidad, Cerveza, Precio, Envase
 # Create your views here.
 
 def index(request):
-    return render(request, 'index.html')
+    cervezas = Cerveza.objects.filter(activo=True)
+    context = {
+        'cervezas' : cervezas
+    }
+    return render(request, 'index.html',context)
 
 def crear_capacidad(request):
     if request.method =='GET':
