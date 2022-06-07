@@ -1,6 +1,6 @@
 from multiprocessing import context
 from django.http import HttpRequest
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from manage_product.forms import Cerveza_Form, Envase_Form, Capacidad_Form, Precio_Form
 from manage_product.models import Capacidad, Cerveza, Precio, Envase
 
@@ -14,34 +14,36 @@ def index(request):
     return render(request, 'index.html',context)
 
 def crear_capacidad(request):
+    capacidades = Capacidad.objects.all()
     if request.method =='GET':
-        estado=0
         form = Capacidad_Form()
         context = {
-        'form':form
+        'form':form,
+        'capacidades':capacidades, 
         }
     else:
-        estado=1
         form = Capacidad_Form(request.POST)
         if form.is_valid():
-            estado=2
             nueva_capacidad = Capacidad.objects.create(
                 volumen = form.cleaned_data['volumen'],
                 medida = form.cleaned_data['medida'],
                 activo = form.cleaned_data['activo'],
             )
+            capacidades = Capacidad.objects.all()
             form = Capacidad_Form()
             context = {
                 'form':form,
-                'estado':estado
+                'capacidades':capacidades, 
             }
     return render(request,'create_capacidad.html',context)
 
 def crear_envase(request):
+    envases = Envase.objects.all()
     if request.method == 'GET':
         form = Envase_Form()
         context = {
-            'form':form
+            'form':form,
+            'envases': envases,
         }
     else:
         form = Envase_Form(request.POST)
@@ -51,17 +53,21 @@ def crear_envase(request):
                 capacidad = form.cleaned_data['capacidad'],
                 activo = form.cleaned_data['activo'],
             )
+        envases = Envase.objects.all()
         form = Envase_Form()
         context = {
-            'form':form
+            'form':form,
+            'envases': envases,
         }    
     return render(request,'create_envase.html',context)
 
 def crear_precio(request):
+    precios = Precio.objects.all()
     if request.method == 'GET':
         form = Precio_Form()
         context = {
-            'form' : form
+            'form' : form,
+            'precios':precios,
         }
     else:
         form=Precio_Form(request.POST)
@@ -71,17 +77,21 @@ def crear_precio(request):
                     fecha_alta = form.cleaned_data['fecha_alta'],
                     activo =form.cleaned_data['activo'],
                 )
+            precios = Precio.objects.all()
             form = Precio_Form()
             context = {
                 'form':form,
+                'precios':precios,
             }
     return render(request,'create_precio.html',context)
 
 def crear_cerveza(request):
+    cervezas = Cerveza.objects.all()
     if request.method=='GET':
         form = Cerveza_Form()
         context = {
-        'form' : form
+        'form' : form,
+        'cervezas': cervezas,
         }
     else:
         form = Cerveza_Form(request.POST)
@@ -97,9 +107,11 @@ def crear_cerveza(request):
                 envase = form.cleaned_data['envase'],
                 activo = form.cleaned_data['activo'],
             )
+            cervezas = Cerveza.objects.all()
             form = Cerveza_Form()
             context = {
-            'form' : form
+            'form' : form,
+            'cervezas':cervezas,
             }  
     return render(request,'create_cerveza.html',context)
 

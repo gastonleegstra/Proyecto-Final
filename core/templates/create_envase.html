@@ -9,5 +9,38 @@
         {{form.as_table}}
     </table>
     <input class="btn btn-primary" type="submit" value="Guardar">
-</form>     
+</form>
+<div>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Capacidad</th>
+            <th scope="col">Activo</th>
+            <th scope="col-2">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for envase in envases %}
+          <tr>
+              <th scope="col">{{envase.id}}</th>
+              <td scope="col">{{envase.tipo}}</td>        
+              <td scope="col">{{envase.capacidad}}</td>
+              <td scope="col">
+              {% if envase.activo == True  %}
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+              {% else %}
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              {% endif %}    
+              </td>
+              <td>
+                <a class="btn btn-primary" href="#" role="button">Editar</a>
+                <a class="btn btn-danger" href="#" role="button">Eliminar</a>
+              </td>
+              {% endfor %}
+          </tr>    
+        </tbody>
+      </table>
+</div>     
 {% endblock content %}

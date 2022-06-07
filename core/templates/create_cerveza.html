@@ -9,5 +9,43 @@
         {{form.as_table}}
     </table>
     <input class="btn btn-primary" type="submit" value="Guardar">
-</form>    
+</form>
+<div>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Color</th>
+            <th scope="col">Brew</th>
+            <th scope="col">Envase</th>
+            <th scope="col">Precio</th>
+            <th scope="col-2">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cerveza in cervezas %}
+          <tr>
+              <th scope="col">{{cerveza.id}}</th>
+              <td scope="col">{{cerveza.nombre}}</td>        
+              <td scope="col">{{cerveza.color}}</td>
+              <td scope="col">{{cerveza.brew}}</td>
+              <td scope="col">{{cerveza.envase}}</td>
+              <td scope="col">{{cerveza.precio}}</td>
+              <td scope="col">
+              {% if cerveza.activo == True  %}
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+              {% else %}
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              {% endif %}    
+              </td>
+              <td>
+                <a class="btn btn-primary" href="#" role="button">Editar</a>
+                <a class="btn btn-danger" href="#" role="button">Eliminar</a>
+              </td>
+              {% endfor %}
+          </tr>    
+        </tbody>
+      </table>
+</div>    
 {% endblock content %}
