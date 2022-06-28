@@ -2,12 +2,51 @@
 {% extends 'base_dashboard.html' %}
 
 {% block content %}
+<<<<<<< HEAD
     <form action="{% url 'registrar-capacidad' %}" method="POST">
+=======
+<form action="{% url 'registrar-capacidad' %}" method="POST">
+>>>>>>> 031cfb49970d7677840454eca633b39d65613fef
     {% csrf_token %}
     <h1>Registro de Volumen</h1>
     <table>
         {{form.as_table}}
     </table>
     <input class="btn btn-primary" type="submit" value="Guardar">
-</form>        
+</form>
+<div>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Volumen</th>
+            <th scope="col">Medida</th>
+            <th scope="col">Activo</th>
+            <th scope="col-2">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for capacidad in capacidades %}
+          <tr>
+              <th scope="col">{{capacidad.id}}</th>
+              <td scope="col">{{capacidad.volumen}}</td>        
+              <td scope="col">{{capacidad.medida}}</td>
+              <td scope="col">
+              {% if capacidad.activo == True  %}
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+              {% else %}
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              {% endif %}    
+              </td>
+              <td>
+                <a class="btn btn-primary" href="#" role="button">Editar</a>
+                <a class="btn btn-danger" href="#" role="button">Eliminar</a>
+              </td>
+              {% endfor %}
+          </tr>    
+        </tbody>
+      </table>
+</div>
+
+
 {% endblock content %}
