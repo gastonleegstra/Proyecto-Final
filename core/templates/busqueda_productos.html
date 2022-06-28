@@ -1,20 +1,28 @@
 
 {% extends 'base.html' %}
+
+{% block titulo %}
+Cerveza
+{% endblock titulo %}
+
 {% block content %}
-<h1>Resultado de la busqueda</h1>
-<section class="container mt-3">
-  <div class="grid" style="--bs-columns: 3;">
-      {% for cerveza in cervezas %}
-      <div class="card mt-1" style="width: 18rem;">
-          <img src="..." class="card-img-top" alt="{{cerveza.nombre}}">
-          <div class="card-body">
-            <h5 class="card-title">{{cerveza.nombre}}</h5>
-            <p class="card-text">{{cerveza.descripcion}}</p>
-            <h5 class="card-title">{{cerveza.precio}}</h5>
-            <a href="#" class="btn btn-primary">Enviar a Carrito</a>
-          </div>
+<section class="container">
+    <div class="container">
+        <div class="row">
+            {% for cerveza in cervezas %}
+            <div class="col">
+                <div class="card mt-2" style="width: 18rem; height: 20rem;">
+                    <img src="..." class="card-img-top" alt="{{cerveza.nombre}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{cerveza.nombre}}</h5>
+                        <p class="card-text">{{cerveza.descripcion}}</p>
+                        <h5 class="card-title">{{cerveza.precio}}</h5>
+                        <a href="#" class="btn btn-primary">Enviar a Carrito</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
-      {% endfor %}
-  </div>
-</section>
+    </div>    
+  </section>
 {% endblock content %}

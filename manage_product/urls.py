@@ -13,8 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from xml.dom.minidom import Document
 from django.urls import path
 from manage_product.views import crear_envase, crear_capacidad, crear_cerveza, crear_precio, listar_cervezas,gestion_peñon,index, busqueda_productos_view
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', index, name = 'index'),
@@ -25,4 +28,4 @@ urlpatterns = [
     path('productos/registrar-cerveza', crear_cerveza, name='registrar-cerveza'),
     path('productos/listar-cerveza', listar_cervezas, name='listar-cerveza'),
     path('productos/busqueda_productos', busqueda_productos_view, name='busqueda_productos_view'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

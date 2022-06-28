@@ -2,7 +2,7 @@
 {% extends 'base_dashboard.html' %}
 
 {% block content %}
-<form action="" method="post">
+<form action="{% url 'registrar-cerveza' %}" method="POST">
     <h1>Registro de Cerveza</h1>
     {% csrf_token %}
     <table>
