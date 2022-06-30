@@ -1,8 +1,7 @@
-from multiprocessing import context
 from django.http import HttpRequest
 from django.shortcuts import render,redirect
-from manage_product.forms import Cerveza_Form, Envase_Form, Capacidad_Form, Precio_Form
-from manage_product.models import Capacidad, Cerveza, Precio, Envase
+from manage_product.forms import Cerveza_Form, Envase_Form, Categoria_Form, Brew_Form
+from manage_product.models import Cerveza, Envase, Categoria, Brew
 
 # Create your views here.
 
@@ -13,29 +12,29 @@ def index(request):
     }
     return render(request, 'index.html',context)
 
-def crear_capacidad(request):
-    capacidades = Capacidad.objects.all()
+def crear_categoria(request):
+    categorias = Categoria.objects.all()
     if request.method =='GET':
-        form = Capacidad_Form()
+        form = Categoria_Form()
         context = {
         'form':form,
-        'capacidades':capacidades, 
+        'categorias':categorias, 
         }
     else:
-        form = Capacidad_Form(request.POST)
+        form = Categoria_Form(request.POST)
         if form.is_valid():
-            nueva_capacidad = Capacidad.objects.create(
-                volumen = form.cleaned_data['volumen'],
-                medida = form.cleaned_data['medida'],
+            nueva_categoria = Categoria.objects.create(
+                categoria = form.cleaned_data['categoria'],
+                descripcion = form.cleaned_data['descripcion'],
                 activo = form.cleaned_data['activo'],
             )
-            capacidades = Capacidad.objects.all()
-            form = Capacidad_Form()
+            categorias = Categoria.objects.all()
+            form = Categoria_Form()
             context = {
                 'form':form,
-                'capacidades':capacidades, 
+                'categorias':categorias, 
             }
-    return render(request,'create_capacidad.html',context)
+    return render(request,'create_categoria.html',context)
 
 def crear_envase(request):
     envases = Envase.objects.all()
@@ -50,7 +49,8 @@ def crear_envase(request):
         if form.is_valid():
             nuevo_envase = Envase.objects.create(
                 tipo = form.cleaned_data['tipo'],
-                capacidad = form.cleaned_data['capacidad'],
+                volumen = form.cleaned_data['volumen'],
+                medida = form.cleaned_data['medida'],
                 activo = form.cleaned_data['activo'],
             )
         envases = Envase.objects.all()
@@ -61,29 +61,29 @@ def crear_envase(request):
         }    
     return render(request,'create_envase.html',context)
 
-def crear_precio(request):
-    precios = Precio.objects.all()
+def crear_brew(request):
+    brews = Brew.objects.all()
     if request.method == 'GET':
-        form = Precio_Form()
+        form = Brew_Form()
         context = {
             'form' : form,
-            'precios':precios,
+            'brews':brews,
         }
     else:
-        form=Precio_Form(request.POST)
+        form=Brew_Form(request.POST)
         if form.is_valid():
-            nuevo_precio = Precio.objects.create(
-                    precio = form.cleaned_data['precio'],
-                    fecha_alta = form.cleaned_data['fecha_alta'],
+            nuevo_brew = Brew.objects.create(
+                    elaborador = form.cleaned_data['elaborador'],
+                    descripcion = form.cleaned_data['descripcion'],
                     activo =form.cleaned_data['activo'],
                 )
-            precios = Precio.objects.all()
-            form = Precio_Form()
+            brews = Brew.objects.all()
+            form = Brew_Form()
             context = {
                 'form':form,
-                'precios':precios,
+                'brews':brews,
             }
-    return render(request,'create_precio.html',context)
+    return render(request,'create_brew.html',context)
 
 def crear_cerveza(request):
     cervezas = Cerveza.objects.all()
@@ -102,9 +102,11 @@ def crear_cerveza(request):
                 abv = form.cleaned_data['abv'],
                 ibu = form.cleaned_data['ibu'],
                 precio = form.cleaned_data['precio'],
+                tipo =form.cleaned_data['tipo'],
                 brew =form.cleaned_data['brew'],
                 color = form.cleaned_data['color'],
                 envase = form.cleaned_data['envase'],
+                categoria =form.cleaned_data['categoria'],
                 activo = form.cleaned_data['activo'],
             )
             cervezas = Cerveza.objects.all()

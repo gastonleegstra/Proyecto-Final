@@ -2,9 +2,9 @@
 {% extends 'base_dashboard.html' %}
 
 {% block content %}
-<form action="{% url 'registrar-capacidad' %}" method="POST">
+<form action="{% url 'registrar-categoria' %}" method="POST">
     {% csrf_token %}
-    <h1>Registro de Volumen</h1>
+    <h1>Registro de Categoria</h1>
     <table>
         {{form.as_table}}
     </table>
@@ -15,20 +15,18 @@
         <thead>
           <tr>
             <th scope="col">Id</th>
-            <th scope="col">Volumen</th>
-            <th scope="col">Medida</th>
+            <th scope="col">Categoria</th>
             <th scope="col">Activo</th>
             <th scope="col-2">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {% for capacidad in capacidades %}
+          {% for categoria in categorias %}
           <tr>
-              <th scope="col">{{capacidad.id}}</th>
-              <td scope="col">{{capacidad.volumen}}</td>        
-              <td scope="col">{{capacidad.medida}}</td>
+              <th scope="col">{{categoria.id}}</th>
+              <td scope="col">{{categoria.categoria}}</td>        
               <td scope="col">
-              {% if capacidad.activo == True  %}
+              {% if categoria.activo == True  %}
                   <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
               {% else %}
                   <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">

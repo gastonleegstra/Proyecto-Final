@@ -2,9 +2,9 @@
 {% extends 'base_dashboard.html' %}
 
 {% block content %}
-<form action="{% url 'registrar-envase' %}" method="POST">
+<form action="{% url 'registrar-brew' %}" method="POST">
     {% csrf_token %}
-    <h1>Registro de Precio</h1>
+    <h1>Registro de Brew</h1>
     <table>
         {{form.as_table}}
     </table>
@@ -15,20 +15,18 @@
         <thead>
           <tr>
             <th scope="col">Id</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Fecha Alta</th>
+            <th scope="col">Elaborador</th>
             <th scope="col">Activo</th>
             <th scope="col-2">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {% for precio in precios %}
+          {% for brew in brews %}
           <tr>
-              <th scope="col">{{precio.id}}</th>
-              <td scope="col">{{precio.precio}}</td>        
-              <td scope="col">{{precio.fecha_alta}}</td>
+              <th scope="col">{{brew.id}}</th>    
+              <td scope="col">{{brew.elaborador}}</td>
               <td scope="col">
-              {% if precio.activo == True  %}
+              {% if brew.activo == True  %}
                   <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
               {% else %}
                   <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">

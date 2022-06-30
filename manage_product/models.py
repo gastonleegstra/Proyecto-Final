@@ -1,61 +1,34 @@
 from datetime import date
-from symtable import Class
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
-class Capacidad(models.Model):
-    #Capacidad:
-    # volumen: capacidad del envase
-    # medida: medida de medida litros o mililitros
-    # activo: activo o no
-    
-    class Meta:
-        verbose_name_plural = 'Capacidades'
-    
-    volumen = models.IntegerField(null=True,blank=True)
-    class Medidas(models.TextChoices):
-        lts='lts', _('lts')
-        ml = 'ml', _('ml')
-    medida = models.CharField(max_length=3,choices=Medidas.choices,null=True,blank=True) 
-    activo = models.BooleanField(default=True)
-
-    def __str__(self):
-        return str(self.volumen)+' '+self.medida
-
-class Precio(models.Model):
-    # Price:
-    # price: ej: 250
-    # fecha_alta: fecha de alta del precio
-    # activo: activo o no
-
-    precio = models.FloatField(null=True,blank=True)
-    fecha_alta = models.DateField(default=date.today(),null=True,blank=True)
-    activo = models.BooleanField(default=True)
-
-    def __str__(self):
-        return "{:.2f}{}".format(self.precio,' Pesos')
 
 class Envase(models.Model):
     # Envase:
     # Tipo: clase del envase
     # capacidad: volumen del envase
+    # medida: unidad de medida
     # activo: activo o no
 
     class Tipo(models.TextChoices):
         botella ='Botella', _('Botella')
         lata = 'Lata', _('Lata')   
     tipo = models.CharField(max_length=7,choices=Tipo.choices,null=True,blank=True)
-    capacidad = models.OneToOneField(Capacidad,on_delete=models.CASCADE)
+    volumen = models.IntegerField(null=True,blank=True)
+    class Medidas(models.TextChoices):
+        lts='lts', _('lts')
+        ml = 'ml', _('ml')
+    medida = models.CharField(max_length=3,choices=Medidas.choices,null=True,blank=True)
     activo = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.tipo + ' '+ str(self.capacidad)
+        return self.tipo + ' '+ str(self.volumen)+ ' ' + self.medida
 
 class Cerveza(models.Model):
     # Cerveza:
     # nombre: nombre de la cerveza
     # abv: cantidad de alcohol
     # ibu: armargor
+    # precio: valor de venta
     # brew: tipo de levadura
     # color: color
     # envase: envase del producto
@@ -65,21 +38,39 @@ class Cerveza(models.Model):
     descripcion = models.TextField(max_length=500,null=True,blank=True)
     abv = models.IntegerField(null=True,blank=True)
     ibu = models.FloatField(null=True,blank=True)
-    precio = models.ForeignKey(Precio,on_delete=models.CASCADE,null=True)
-    class Brew (models.TextChoices):
+    precio = models.FloatField(null=True,blank=True)
+    class Tipo (models.TextChoices):
         ale = 'Ale', _('Ale')
         lager = 'Lager', _('Lager')
     class Color(models.TextChoices):
         golden = 'Golden', _('Golden')
         red = 'Red', _('Red')
         black = 'Black', _('Black')   
-    brew =models.CharField(max_length=5,choices=Brew.choices, null=True,blank=True)
+    tipo =models.CharField(max_length=5,choices=Tipo.choices, null=True,blank=True)
+    brew = models.ForeignKey('Brew',on_delete=models.PROTECT,null=True,related_name='brews')
     color = models.CharField(max_length=6,choices=Color.choices, null=True,blank=True)
-    envase = models.ForeignKey(Envase, on_delete=models.CASCADE,null=True)
+    envase = models.ForeignKey('Envase', on_delete=models.PROTECT,null=True,related_name='envases')
+    categoria = models.ForeignKey('Categoria',on_delete=models.PROTECT,null=True,related_name='categorias')
     activo = models.BooleanField(default=True)
 
     def __str__(self):
         return self.nombre
+
+class Categoria (models.Model):
+    categoria = models.CharField(max_length=50,null=True,blank=True)
+    descripcion = models.TextField(max_length=150,null=True,blank=True)
+    activo = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.categoria
+
+class Brew(models.Model):
+    elaborador = models.CharField(max_length=30,null=True,blank=True)
+    descripcion = models.TextField(max_length=150,null=True,blank=True)
+    activo = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.elaborador
 
 
 

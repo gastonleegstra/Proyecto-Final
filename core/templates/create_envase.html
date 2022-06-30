@@ -16,7 +16,8 @@
           <tr>
             <th scope="col">Id</th>
             <th scope="col">Tipo</th>
-            <th scope="col">Capacidad</th>
+            <th scope="col">Volumen</th>
+            <th scope="col">Medida</th>
             <th scope="col">Activo</th>
             <th scope="col-2">Acciones</th>
           </tr>
@@ -26,7 +27,8 @@
           <tr>
               <th scope="col">{{envase.id}}</th>
               <td scope="col">{{envase.tipo}}</td>        
-              <td scope="col">{{envase.capacidad}}</td>
+              <td scope="col">{{envase.volumen}}</td>
+              <td scope="col">{{envase.medida}}</td>
               <td scope="col">
               {% if envase.activo == True  %}
                   <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
