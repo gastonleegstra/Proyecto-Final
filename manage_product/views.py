@@ -1,9 +1,24 @@
+from multiprocessing import context
+import re
+from urllib import request
+from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpRequest
 from django.shortcuts import render,redirect
 from manage_product.forms import Cerveza_Form, Envase_Form, Categoria_Form, Brew_Form
 from manage_product.models import Cerveza, Envase, Categoria, Brew
 
 # Create your views here.
+
+def login_view(request):
+    if request.method == 'POST':
+        pass
+
+    else:
+        form = AuthenticationForm()
+        context = {'form':form}
+        return render(request,'auth/login.html',context=context)
+
+
 
 def index(request):
     cervezas = Cerveza.objects.filter(activo=True)
@@ -136,3 +151,7 @@ def busqueda_productos_view(request):
     cervezas = Cerveza.objects.filter(nombre__icontains = request.GET['search'])
     context = {'cervezas':cervezas}
     return render(request, 'busqueda_productos.html', context= context)
+
+
+
+
