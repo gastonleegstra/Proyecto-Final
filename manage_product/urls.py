@@ -15,7 +15,7 @@ Including another URLconf
 """
 from xml.dom.minidom import Document
 from django.urls import path
-from manage_product.views import crear_envase, crear_categoria, crear_cerveza, crear_brew, listar_cervezas,gestion_peñon,index, busqueda_productos_view, login_view
+from manage_product.views import crear_envase, crear_categoria, crear_cerveza, crear_brew, listar_cervezas,gestion_peñon,index, busqueda_productos_view, login_view,delete_categoria,edit_categoria
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -23,6 +23,8 @@ urlpatterns = [
     path('', index, name = 'index'),
     path('productos/gestion-peñon', gestion_peñon, name='gestion-peñon'),
     path('productos/registrar-categoria',crear_categoria, name='registrar-categoria'),
+    path('productos/delete-categoria/<int:pk>/', delete_categoria, name = 'delete-categoria'),
+    path('productos/edit-categoria/<int:pk>/', edit_categoria, name = 'edit-categoria'),
     path('productos/registrar-envase',crear_envase, name='registrar-envase'),
     path('productos/registrar-brew', crear_brew, name='registrar-brew'),
     path('productos/registrar-cerveza', crear_cerveza, name='registrar-cerveza'),

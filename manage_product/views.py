@@ -6,7 +6,6 @@ from django.http import HttpRequest
 from django.shortcuts import render,redirect
 from manage_product.forms import Cerveza_Form, Envase_Form, Categoria_Form, Brew_Form
 from manage_product.models import Cerveza, Envase, Categoria, Brew
-
 # Create your views here.
 
 def login_view(request):
@@ -18,14 +17,32 @@ def login_view(request):
         context = {'form':form}
         return render(request,'auth/login.html',context=context)
 
-
-
 def index(request):
     cervezas = Cerveza.objects.filter(activo=True)
     context = {
         'cervezas' : cervezas
     }
     return render(request, 'index.html',context)
+
+def listar_cervezas(request):
+    cervezas = Cerveza.objects.filter(activo=True)
+    context = {
+        'cervezas' : cervezas
+    }
+    return render(request,'list_cervezas.html',context)
+
+def gestion_peñon(request):
+    cervezas = Cerveza.objects.all()
+    context = {
+        'cervezas' : cervezas
+    }
+    return render(request,'gestion_peñon.html',context)
+
+def busqueda_productos_view(request): 
+    print(request.GET)
+    cervezas = Cerveza.objects.filter(nombre__icontains = request.GET['search'])
+    context = {'cervezas':cervezas}
+    return render(request, 'busqueda_productos.html', context= context)    
 
 def crear_categoria(request):
     categorias = Categoria.objects.all()
@@ -132,26 +149,22 @@ def crear_cerveza(request):
             }  
     return render(request,'create_cerveza.html',context)
 
-def listar_cervezas(request):
-    cervezas = Cerveza.objects.filter(activo=True)
-    context = {
-        'cervezas' : cervezas
-    }
-    return render(request,'list_cervezas.html',context)
+def delete_categoria(request,pk):
+            categoria = Categoria.objects.get(id=pk)
+            categoria.delete()
+            return redirect('registrar-categoria')
 
-def gestion_peñon(request):
-    cervezas = Cerveza.objects.all()
-    context = {
-        'cervezas' : cervezas
-    }
-    return render(request,'gestion_peñon.html',context)
-
-def busqueda_productos_view(request): 
-    print(request.GET)
-    cervezas = Cerveza.objects.filter(nombre__icontains = request.GET['search'])
-    context = {'cervezas':cervezas}
-    return render(request, 'busqueda_productos.html', context= context)
-
-
+def edit_categoria(request,pk):
+    categoria = Categoria.objects.get(id=pk)
+    if request.method == 'GET':
+        categorias = Categoria.objects.all()
+        form = Categoria_Form(instance=categoria)
+        context = {'form':form,'categorias':categorias}
+        return render (request,'edit_categoria.html',context)
+    else:
+        form = Categoria_Form(request.POST,instance=categoria)
+        if form.is_valid():
+            categoria.save()
+            return redirect('registrar-categoria')
 
 
