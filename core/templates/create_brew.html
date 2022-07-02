@@ -33,8 +33,8 @@
               {% endif %}    
               </td>
               <td>
-                <a class="btn btn-primary" href="#" role="button">Editar</a>
-                <a class="btn btn-danger" href="#" role="button">Eliminar</a>
+                <a class="btn btn-primary" href="{% url 'edit-brew' brew.id %}" role="button">Editar</a>
+                <a class="btn btn-danger" href="{% url 'delete-brew' brew.id %}" role="button">Eliminar</a>
               </td>
               {% endfor %}
           </tr>    

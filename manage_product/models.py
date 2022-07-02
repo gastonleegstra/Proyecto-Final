@@ -52,6 +52,7 @@ class Cerveza(models.Model):
     envase = models.ForeignKey('Envase', on_delete=models.PROTECT,null=True,related_name='envases')
     categoria = models.ForeignKey('Categoria',on_delete=models.PROTECT,null=True,related_name='categorias')
     activo = models.BooleanField(default=True)
+    image = models.ImageField(upload_to = 'products', blank=True, null=True)
 
     def __str__(self):
         return self.nombre

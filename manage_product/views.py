@@ -1,5 +1,4 @@
-from multiprocessing import context
-import re
+from email.mime import image
 from urllib import request
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpRequest
@@ -126,7 +125,7 @@ def crear_cerveza(request):
         'cervezas': cervezas,
         }
     else:
-        form = Cerveza_Form(request.POST)
+        form = Cerveza_Form(request.POST, request.FILES)
         if form.is_valid():
             nueva_cerveza = Cerveza.objects.create(
                 nombre = form.cleaned_data['nombre'],
@@ -139,6 +138,7 @@ def crear_cerveza(request):
                 color = form.cleaned_data['color'],
                 envase = form.cleaned_data['envase'],
                 categoria =form.cleaned_data['categoria'],
+                image =form.cleaned_data['image'],
                 activo = form.cleaned_data['activo'],
             )
             cervezas = Cerveza.objects.all()
@@ -167,4 +167,56 @@ def edit_categoria(request,pk):
             categoria.save()
             return redirect('registrar-categoria')
 
+def delete_brew(request,pk):
+            brew = Brew.objects.get(id=pk)
+            brew.delete()
+            return redirect('registrar-brew')
 
+def edit_brew(request,pk):
+    brew = Brew.objects.get(id=pk)
+    if request.method == 'GET':
+        brews = Brew.objects.all()
+        form = Brew_Form(instance=brew)
+        context = {'form':form,'brews':brews}
+        return render (request,'edit_brew.html',context)
+    else:
+        form = Brew_Form(request.POST,instance=brew)
+        if form.is_valid():
+            brew.save()
+            return redirect('registrar-brew')
+
+def delete_envase(request,pk):
+            envase = Envase.objects.get(id=pk)
+            envase.delete()
+            return redirect('registrar-envase')
+
+def edit_envase(request,pk):
+    envase = Envase.objects.get(id=pk)
+    if request.method == 'GET':
+        envases = Envase.objects.all()
+        form = Envase_Form(instance=envase)
+        context = {'form':form,'envases':envases}
+        return render (request,'edit_envase.html',context)
+    else:
+        form = Envase_Form(request.POST,instance=envase)
+        if form.is_valid():
+            envase.save()
+            return redirect('registrar-envase')
+
+def delete_cerveza(request,pk):
+            cerveza = Cerveza.objects.get(id=pk)
+            cerveza.delete()
+            return redirect('registrar-cerveza')
+
+def edit_cerveza(request,pk):
+    cerveza = Cerveza.objects.get(id=pk)
+    if request.method == 'GET':
+        cervezas = Cerveza.objects.all()
+        form = Cerveza_Form(instance=cerveza)
+        context = {'form':form,'cervezas':cervezas}
+        return render (request,'edit_cerveza.html',context)
+    else:
+        form = Cerveza_Form(request.POST,request.FILES,instance=cerveza)
+        if form.is_valid():
+            cerveza.save()
+            return redirect('registrar-cerveza')
