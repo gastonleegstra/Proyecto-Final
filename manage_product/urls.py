@@ -15,7 +15,7 @@ Including another URLconf
 """
 from xml.dom.minidom import Document
 from django.urls import path
-from manage_product.views import crear_envase, crear_capacidad, crear_cerveza, crear_precio, listar_cervezas,gestion_peñon,index, busqueda_productos_view, login_view
+from manage_product.views import crear_envase, crear_capacidad, crear_cerveza, crear_precio, listar_cervezas,gestion_peñon,index, busqueda_productos_view, login_view, logout_view
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -29,4 +29,5 @@ urlpatterns = [
     path('productos/listar-cerveza', listar_cervezas, name='listar-cerveza'),
     path('productos/busqueda_productos', busqueda_productos_view, name='busqueda_productos_view'),
     path('productos/login', login_view, name='login'),
+    path('productos/logout', logout_view, name='logout'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

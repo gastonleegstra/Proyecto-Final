@@ -34,9 +34,11 @@
                 <form class="d-flex mt-2" action="{% url 'busqueda_productos_view' %}" method="GET">
                   <input class="form-control me-2" type="text" placeholder="Nombre del producto" id="search" name="search" aria-label="Search">
                   <button class="btn btn-outline-success" type="submit">Buscar</button>
+
                 </form class="d-flex mt-2" action="{% url 'login' %}" method="GET">
-                    <a class="btn btn-outline-primary mt-2 ms-2 me-2" href="{% url 'login' %}">Login</a>
-                    <button type="button" class="btn btn-outline-warning mt-2">Sign-up</button>
+                <a class="btn btn-outline-primary mt-2 ms-2 me-2" href="{% url 'logout' %}">logout</a>     
+                <a class="btn btn-outline-primary mt-2 ms-2 me-2" href="{% url 'login' %}">Login</a>    
+                <button type="button" class="btn btn-outline-warning mt-2">Registrarse</button>
               </div>
             </div>
           </nav>

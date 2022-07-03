@@ -1,9 +1,12 @@
+from enum import auto
 from multiprocessing import context
 import re
 from urllib import request
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest
 from django.shortcuts import render,redirect
+from platformdirs import user_runtime_path
 from manage_product.forms import Cerveza_Form, Envase_Form, Capacidad_Form, Precio_Form
 from manage_product.models import Capacidad, Cerveza, Precio, Envase
 
@@ -11,14 +14,35 @@ from manage_product.models import Capacidad, Cerveza, Precio, Envase
 
 def login_view(request):
     if request.method == 'POST':
-        pass
+        form = AuthenticationForm(request, data= request.POST)
 
+        if form.is_valid():
+            username= form.cleaned_data['username']
+            password= form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                context = {'message':f'Bienvenido {username} al portal'}
+                return render(request, 'index.html', context=context)
+                #return redirect()
+            else: 
+                context = {'error': 'Usuario o contraseña incorreccto'}
+                form = AuthenticationForm()
+                return render (request, 'auth/login.html', context=context)
+        else:
+            errors = form.errors
+            form = AuthenticationForm()
+            context = {'error':errors, 'form':form}
+            return render (request, 'auth/login.html', context=context)
     else:
         form = AuthenticationForm()
         context = {'form':form}
         return render(request,'auth/login.html',context=context)
 
-
+def logout_view(request):
+    logout(request)
+    return redirect('index')
 
 def index(request):
     cervezas = Cerveza.objects.filter(activo=True)
