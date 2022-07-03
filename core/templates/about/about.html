@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block titulo %}
+    Peñon - About Us
+{% endblock titulo %}
+{% block content %}
+        <div class="container text-white-50">
+            <div class="comp-row shortcode-row space-between valign-center">
+                <div class="shortcode-col col" style="flex">
+                    <h1 class="comp-pre-title overline-14 sd-omit">About Us</h1>
+
+                    <p class="shortcode-p comp-p"> Nuestro proyecto se trata de emular lo que seria un tienda de venta de cerveza. Al momento la parte de la compra no se encuentra desarrolla. Si en gran medida la parte de la gestion de la carga y la administracion de los productos si a traves de un panel de control personalizado.
+                    </p>
+                </div>
+                {% for developer in developers %}
+                <div class="shortcode-col col" style="flex">
+                    <div class="comp-resp-img wrapper shortcode-resp-image">
+                        <figure>
+                            <img src="{{developer.image.url}}" style="border-radius: 50%; width: 10%;"/>
+                            <figcaption>
+                                {{developer.nombre}}
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div style="width: 350px;">
+                        <p>{{developer.descripcion}}</p>
+                    </div>
+                </div>
+               {% endfor %}
+            </div>
+        </div>
+
+{%endblock content%}

@@ -1,22 +1,26 @@
 {% extends 'base.html' %}
-
 {% block titulo %}
-Cerveza
+Peñon
 {% endblock titulo %}
 
 {% block content %}
+{% include 'carrusel.html' %}
 <section class="container">
     <div class="container">
         <div class="row">
             {% for cerveza in cervezas %}
             <div class="col">
                 <div class="card mt-2" style="width: 18rem; height: 20rem;">
-                    <img src="..." class="card-img-top" alt="{{cerveza.nombre}}">
+                    {% if cerveza.image %}
+                        <img src="{{cerveza.image.url}}" class="card-img-top" style="width: 35%; height: 50%;" alt="{{cerveza.nombre}}">
+                    {% else %}
+                    <img src="..." class="card-img-top" style="width: 35%; height: 50%;" alt="{{cerveza.nombre}}">
+                    {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{cerveza.nombre}}</h5>
                         <p class="card-text">{{cerveza.descripcion}}</p>
                         <h5 class="card-title">{{cerveza.precio}}</h5>
-                        <a href="#" class="btn btn-primary">Enviar a Carrito</a>
+                        <a href="#" class="btn btn-primary">Ver Mas...</a>
                     </div>
                 </div>
             </div>

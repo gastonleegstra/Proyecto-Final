@@ -2,9 +2,9 @@
 {% extends 'base_dashboard.html' %}
 
 {% block content %}
-<form action="{% url 'registrar-envase' %}" method="POST">
+<form action="{% url 'registrar-categoria' %}" method="POST">
     {% csrf_token %}
-    <h1>Registro de Envase</h1>
+    <h1>Registro de Categoria</h1>
     <table>
         {{form.as_table}}
     </table>
@@ -15,34 +15,32 @@
         <thead>
           <tr>
             <th scope="col">Id</th>
-            <th scope="col">Tipo</th>
-            <th scope="col">Volumen</th>
-            <th scope="col">Medida</th>
+            <th scope="col">Categoria</th>
             <th scope="col">Activo</th>
             <th scope="col-2">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {% for envase in envases %}
+          {% for categoria in categorias %}
           <tr>
-              <th scope="col">{{envase.id}}</th>
-              <td scope="col">{{envase.tipo}}</td>        
-              <td scope="col">{{envase.volumen}}</td>
-              <td scope="col">{{envase.medida}}</td>
+              <th scope="col">{{categoria.id}}</th>
+              <td scope="col">{{categoria.categoria}}</td>        
               <td scope="col">
-              {% if envase.activo == True  %}
+              {% if categoria.activo == True  %}
                   <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
               {% else %}
                   <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
               {% endif %}    
               </td>
               <td>
-                <a class="btn btn-primary" href="{% url 'edit-envase' envase.id %}" role="button">Editar</a>
-                <a class="btn btn-danger" href="{% url 'delete-envase' envase.id %}" role="button">Eliminar</a>
+                <a class="btn btn-primary" href="{% url 'edit-categoria' categoria.id %}" role="button">Editar</a>
+                <a class="btn btn-danger" href="{% url 'delete-categoria' categoria.id %}" role="button">Eliminar</a>
               </td>
               {% endfor %}
           </tr>    
         </tbody>
       </table>
-</div>     
+</div>
+
+
 {% endblock content %}

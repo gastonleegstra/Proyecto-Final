@@ -1,0 +1,44 @@
+
+{% extends 'base_dashboard.html' %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <h1>Editar de Brew</h1>
+    <table>
+        {{form.as_table}}
+    </table>
+    <input class="btn btn-primary" type="submit" value="Guardar">
+</form>
+<div>
+  <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Elaborador</th>
+          <th scope="col">Activo</th>
+          <th scope="col-2">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for brew in brews %}
+        <tr>
+            <th scope="col">{{brew.id}}</th>    
+            <td scope="col">{{brew.elaborador}}</td>
+            <td scope="col">
+            {% if brew.activo == True  %}
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            {% else %}
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            {% endif %}    
+            </td>
+            <td>
+              <a class="btn btn-primary" href="{% url 'edit-brew' brew.id %}" role="button">Editar</a>
+              <a class="btn btn-danger" href="{% url 'delete-brew' brew.id %}" role="button">Eliminar</a>
+            </td>
+            {% endfor %}
+        </tr>    
+      </tbody>
+    </table>
+</div>     
+{% endblock content %}

@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from django.conf import settings
+from django.conf.urls.static import static
 
 base_url = [
     path('admin/', admin.site.urls),
@@ -22,6 +24,7 @@ base_url = [
 
 my_apps_url= [
     path('',include('manage_product.urls')),
+    path('',include('about.urls')),
 ]
 
-urlpatterns = base_url + my_apps_url
+urlpatterns = base_url + my_apps_url + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

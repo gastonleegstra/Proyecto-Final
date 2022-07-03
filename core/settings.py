@@ -43,6 +43,7 @@ BASE_APPS = [
 
 MY_APPS = [
     'core',
+    'about',
     'manage_product',
     'users',]
 
@@ -133,7 +134,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #Configuro directorio de ubicacion de archivos estaticos
 STATICFILES_DIRS = [
-    BASE_DIR / "static",]
+    BASE_DIR / 'core/static',]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

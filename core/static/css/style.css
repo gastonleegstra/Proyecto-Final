@@ -1,5 +1,5 @@
 .container-db{
-    background:#e0e0e0;
+    background:#fff;
     display: flex;
 }
 .container-db form{
@@ -9,3 +9,9 @@
     height: fit-content;
     padding: 10px 10px;
 }
+
+.bar-sticky{
+        position: sticky;
+        top:0;
+        z-index: 3;
+    }
