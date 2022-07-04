@@ -95,12 +95,17 @@ def busqueda_productos_view(request):
     return render(request, 'busqueda_productos.html', context= context)    
 
 def crear_categoria(request):
+    try:
+        perfil= User_profile.objects.get(user=request.user)
+    except:
+        perfil = None
     categorias = Categoria.objects.all()
     if request.method =='GET':
         form = Categoria_Form()
         context = {
         'form':form,
         'categorias':categorias, 
+        'perfil':perfil,
         }
     else:
         form = Categoria_Form(request.POST)
@@ -119,12 +124,17 @@ def crear_categoria(request):
     return render(request,'create_categoria.html',context)
 
 def crear_envase(request):
+    try:
+        perfil= User_profile.objects.get(user=request.user)
+    except:
+        perfil = None    
     envases = Envase.objects.all()
     if request.method == 'GET':
         form = Envase_Form()
         context = {
             'form':form,
             'envases': envases,
+            'perfil':perfil,
         }
     else:
         form = Envase_Form(request.POST)
@@ -144,12 +154,17 @@ def crear_envase(request):
     return render(request,'create_envase.html',context)
 
 def crear_brew(request):
+    try:
+        perfil= User_profile.objects.get(user=request.user)
+    except:
+        perfil = None    
     brews = Brew.objects.all()
     if request.method == 'GET':
         form = Brew_Form()
         context = {
             'form' : form,
             'brews':brews,
+            'perfil':perfil,
         }
     else:
         form=Brew_Form(request.POST)
@@ -168,12 +183,17 @@ def crear_brew(request):
     return render(request,'create_brew.html',context)
 
 def crear_cerveza(request):
+    try:
+        perfil= User_profile.objects.get(user=request.user)
+    except:
+        perfil = None    
     cervezas = Cerveza.objects.all()
     if request.method=='GET':
         form = Cerveza_Form()
         context = {
         'form' : form,
         'cervezas': cervezas,
+        'perfil':perfil,
         }
     else:
         form = Cerveza_Form(request.POST, request.FILES)
@@ -206,11 +226,15 @@ def delete_categoria(request,pk):
             return redirect('registrar-categoria')
 
 def edit_categoria(request,pk):
+    try:
+        perfil= User_profile.objects.get(user=request.user)
+    except:
+        perfil = None    
     categoria = get_object_or_404(Categoria,id=pk)
     if request.method == 'GET':
         categorias = Categoria.objects.all()
         form = Categoria_Form(instance=categoria)
-        context = {'form':form,'categorias':categorias}
+        context = {'form':form,'categorias':categorias,'perfil':perfil}
         return render (request,'edit_categoria.html',context)
     else:
         form = Categoria_Form(request.POST,instance=categoria)
@@ -224,11 +248,15 @@ def delete_brew(request,pk):
     return redirect('registrar-brew')
 
 def edit_brew(request,pk):
+    try:
+        perfil= User_profile.objects.get(user=request.user)
+    except:
+        perfil = None    
     brew = get_object_or_404(Brew,id=pk)
     if request.method == 'GET':
         brews = Brew.objects.all()
         form = Brew_Form(instance=brew)
-        context = {'form':form,'brews':brews}
+        context = {'form':form,'brews':brews,'perfil':perfil}
         return render (request,'edit_brew.html',context)
     else:
         form = Brew_Form(request.POST,instance=brew)
@@ -242,11 +270,15 @@ def delete_envase(request,pk):
     return redirect('registrar-envase')
 
 def edit_envase(request,pk):
+    try:
+        perfil= User_profile.objects.get(user=request.user)
+    except:
+        perfil = None    
     envase = get_object_or_404(Envase,id=pk)
     if request.method == 'GET':
         envases = Envase.objects.all()
         form = Envase_Form(instance=envase)
-        context = {'form':form,'envases':envases}
+        context = {'form':form,'envases':envases,'perfil':perfil}
         return render (request,'edit_envase.html',context)
     else:
         form = Envase_Form(request.POST,instance=envase)
@@ -260,11 +292,15 @@ def delete_cerveza(request,pk):
     return redirect('registrar-cerveza')
 
 def edit_cerveza(request,pk):
+    try:
+        perfil= User_profile.objects.get(user=request.user)
+    except:
+        perfil = None    
     cerveza = get_object_or_404(Cerveza,id=pk)
     if request.method == 'GET':
         cervezas = Cerveza.objects.all()
         form = Cerveza_Form(instance=cerveza)
-        context = {'form':form,'cervezas':cervezas}
+        context = {'form':form,'cervezas':cervezas,'perfil':perfil}
         return render (request,'edit_cerveza.html',context)
     else:
         form = Cerveza_Form(request.POST,request.FILES,instance=cerveza)

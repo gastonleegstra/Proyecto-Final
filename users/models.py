@@ -9,8 +9,8 @@ class User_profile(models.Model):
     phone = models.CharField(max_length=20,default = "")
     nombre = models.CharField(max_length=20,default = "")
     apellido = models.CharField(max_length=20,default = "")
-    correo = models.CharField(max_length=20,default = "")
+    correo = models.CharField(max_length=25,default = "")
     profile_image = models.ImageField(upload_to='profile_image',default = "")
 
     def __str__(self):
-        return self.user
+        return self.nombre
