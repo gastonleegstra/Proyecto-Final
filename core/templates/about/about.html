@@ -8,7 +8,7 @@
                 <div class="shortcode-col col" style="flex">
                     <h1 class="comp-pre-title overline-14 sd-omit">About Us</h1>
 
-                    <p class="shortcode-p comp-p"> Nuestro proyecto se trata de emular lo que seria un tienda de venta de cerveza. Al momento la parte de la compra no se encuentra desarrolla. Si en gran medida la parte de la gestion de la carga y la administracion de los productos si a traves de un panel de control personalizado.
+                    <p class="shortcode-p comp-p"> Nuestro proyecto se trata de emular lo que seria un tienda de venta de cerveza. Al momento la parte de la compra no se encuentra desarrolla. Si en gran medida la parte de la gestion de la carga y la administracion de los productos a traves de un panel de control personalizado.
                     </p>
                 </div>
                 {% for developer in developers %}
@@ -22,7 +22,7 @@
                         </figure>
                     </div>
                     <div style="width: 350px;">
-                        <p>{{developer.descripcion}}</p>
+                        {{developer.descripcion|safe}}
                     </div>
                 </div>
                {% endfor %}
