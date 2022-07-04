@@ -6,6 +6,7 @@ from manage_product.forms import Cerveza_Form, Envase_Form, Categoria_Form, Brew
 from manage_product.models import Cerveza, Envase, Categoria, Brew
 from users.models import User_profile
 from users.forms import User_profile_Form
+from users.forms import User_registrarion_form
 # Create your views here.
 
 def login_view(request):
@@ -38,7 +39,7 @@ def login_view(request):
 def register_view(request):
     cervezas = Cerveza.objects.filter(activo=True)
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = User_registrarion_form(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data['username']
@@ -49,11 +50,11 @@ def register_view(request):
             return render(request, 'index.html', context = context)
         else:
             errors = form.errors
-            form = UserCreationForm()
+            form = User_registrarion_form()
             context = {'errors':errors, 'form': form} 
             return render(request, 'auth/register.html', context=context)
     else:
-        form = UserCreationForm
+        form = User_registrarion_form
         context = {'form': form}
         return render (request, 'auth/register.html', context = context)
 
