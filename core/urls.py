@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
+from manage_product.views import en_construccion
 
 base_url = [
     path('admin/', admin.site.urls),
+    path('en_construccion/',en_construccion,name='en-construccion'),
 ]
 
 my_apps_url= [

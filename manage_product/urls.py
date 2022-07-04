@@ -14,11 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-<<<<<<< HEAD
-from manage_product.views import crear_envase, crear_capacidad, crear_cerveza, crear_precio, listar_cervezas,gestion_peñon,index, busqueda_productos_view, login_view, logout_view
-=======
-from manage_product.views import crear_envase, crear_categoria, crear_cerveza, crear_brew, listar_cervezas,gestion_peñon,index, busqueda_productos_view, login_view,delete_categoria,edit_categoria,edit_brew,delete_brew,delete_envase,edit_envase,delete_cerveza,edit_cerveza
->>>>>>> ff0a90bdcced93e0b9ef4fd01243b4475cab0ea3
+from manage_product.views import crear_envase, crear_categoria, crear_cerveza, crear_brew, listar_cervezas,gestion_peñon,index, busqueda_productos_view, login_view,delete_categoria,edit_categoria,edit_brew,delete_brew,delete_envase,edit_envase,delete_cerveza,edit_cerveza,logout_view
 from django.conf import settings
 from django.conf.urls.static import static
 

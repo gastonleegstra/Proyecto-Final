@@ -1,24 +1,10 @@
-<<<<<<< HEAD
-from enum import auto
-from multiprocessing import context
-import re
-=======
-from email.mime import image
->>>>>>> ff0a90bdcced93e0b9ef4fd01243b4475cab0ea3
 from urllib import request
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest
-from django.shortcuts import render,redirect
-<<<<<<< HEAD
-from platformdirs import user_runtime_path
-from manage_product.forms import Cerveza_Form, Envase_Form, Capacidad_Form, Precio_Form
-from manage_product.models import Capacidad, Cerveza, Precio, Envase
-
-=======
+from django.shortcuts import get_object_or_404, render,redirect
 from manage_product.forms import Cerveza_Form, Envase_Form, Categoria_Form, Brew_Form
 from manage_product.models import Cerveza, Envase, Categoria, Brew
->>>>>>> ff0a90bdcced93e0b9ef4fd01243b4475cab0ea3
 # Create your views here.
 
 def login_view(request):
@@ -33,8 +19,7 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 context = {'message':f'Bienvenido {username} al portal'}
-                return render(request, 'index.html', context=context)
-                #return redirect()
+                return redirect('index')
             else: 
                 context = {'error': 'Usuario o contraseña incorreccto'}
                 form = AuthenticationForm()
@@ -49,13 +34,10 @@ def login_view(request):
         context = {'form':form}
         return render(request,'auth/login.html',context=context)
 
-<<<<<<< HEAD
 def logout_view(request):
     logout(request)
     return redirect('index')
 
-=======
->>>>>>> ff0a90bdcced93e0b9ef4fd01243b4475cab0ea3
 def index(request):
     cervezas = Cerveza.objects.filter(activo=True)
     context = {
@@ -190,12 +172,12 @@ def crear_cerveza(request):
     return render(request,'create_cerveza.html',context)
 
 def delete_categoria(request,pk):
-            categoria = Categoria.objects.get(id=pk)
+            categoria = get_object_or_404(Categoria,id=pk)
             categoria.delete()
             return redirect('registrar-categoria')
 
 def edit_categoria(request,pk):
-    categoria = Categoria.objects.get(id=pk)
+    categoria = get_object_or_404(Categoria,id=pk)
     if request.method == 'GET':
         categorias = Categoria.objects.all()
         form = Categoria_Form(instance=categoria)
@@ -208,12 +190,12 @@ def edit_categoria(request,pk):
             return redirect('registrar-categoria')
 
 def delete_brew(request,pk):
-            brew = Brew.objects.get(id=pk)
-            brew.delete()
-            return redirect('registrar-brew')
+    brew = get_object_or_404(Brew,id=pk)
+    brew.delete()
+    return redirect('registrar-brew')
 
 def edit_brew(request,pk):
-    brew = Brew.objects.get(id=pk)
+    brew = get_object_or_404(Brew,id=pk)
     if request.method == 'GET':
         brews = Brew.objects.all()
         form = Brew_Form(instance=brew)
@@ -226,12 +208,12 @@ def edit_brew(request,pk):
             return redirect('registrar-brew')
 
 def delete_envase(request,pk):
-            envase = Envase.objects.get(id=pk)
-            envase.delete()
-            return redirect('registrar-envase')
+    envase = get_object_or_404(Envase,id=pk)
+    envase.delete()
+    return redirect('registrar-envase')
 
 def edit_envase(request,pk):
-    envase = Envase.objects.get(id=pk)
+    envase = get_object_or_404(Envase,id=pk)
     if request.method == 'GET':
         envases = Envase.objects.all()
         form = Envase_Form(instance=envase)
@@ -244,12 +226,12 @@ def edit_envase(request,pk):
             return redirect('registrar-envase')
 
 def delete_cerveza(request,pk):
-            cerveza = Cerveza.objects.get(id=pk)
-            cerveza.delete()
-            return redirect('registrar-cerveza')
+    cerveza = get_object_or_404(Cerveza,id=pk)
+    cerveza.delete()
+    return redirect('registrar-cerveza')
 
 def edit_cerveza(request,pk):
-    cerveza = Cerveza.objects.get(id=pk)
+    cerveza = get_object_or_404(Cerveza,id=pk)
     if request.method == 'GET':
         cervezas = Cerveza.objects.all()
         form = Cerveza_Form(instance=cerveza)
@@ -260,3 +242,8 @@ def edit_cerveza(request,pk):
         if form.is_valid():
             cerveza.save()
             return redirect('registrar-cerveza')
+
+def en_construccion(request):
+    mensaje='Pagina en Construccion'
+    context = {'mensaje':mensaje}
+    return render(request,'en_construccion.html',context)

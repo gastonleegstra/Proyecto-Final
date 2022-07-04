@@ -25,7 +25,7 @@
               <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Inicio</a>
+                        <a class="nav-link" href="{% url 'index' %}">Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'about' %}">About us</a>
@@ -34,10 +34,13 @@
                 <form class="d-flex mt-2" action="{% url 'busqueda_productos_view' %}" method="GET">
                   <input class="form-control me-2" type="text" placeholder="Nombre del producto" id="search" name="search" aria-label="Search">
                   <button class="btn btn-outline-success" type="submit">Buscar</button>
-
-                </form class="d-flex mt-2" action="{% url 'login' %}" method="GET">
-                <a class="btn btn-outline-primary mt-2 ms-2 me-2" href="{% url 'logout' %}">logout</a>     
-                <a class="btn btn-outline-primary mt-2 ms-2 me-2" href="{% url 'login' %}">Login</a>    
+                </form>
+                {% if request.user.is_authenticated %}
+                  <a class="btn btn-outline-primary mt-2 ms-2 me-2" href="{% url 'gestion-peñon' %}">Gestion</a>
+                  <a class="btn btn-outline-primary mt-2 ms-2 me-2" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                  <a class="btn btn-outline-primary mt-2 ms-2 me-2" href="{% url 'login' %}">Login</a> 
+                {% endif %}
                 <button type="button" class="btn btn-outline-warning mt-2">Registrarse</button>
               </div>
             </div>

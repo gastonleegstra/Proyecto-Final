@@ -2,22 +2,27 @@
 {% block titulo %}Peñon-Gestion{% endblock titulo %}Peñon-Gestion
 {% block content %}
 <section class="container mt-3">
-  <form class="d-flex mt-2" role="search">
-    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-    <button class="btn btn-success" type="submit">Buscar</button>
-  </form>
   <div>
   <div class="grid">
       <div class="row">
           {% for cerveza in cervezas %}
           <div class="col">
-              <div class="card mt-2" style="width: 18rem; height: 20rem;">
-                  <img src="..." class="card-img-top" alt="{{cerveza.nombre}}">
+              <div class="card mt-2" style="width: 18rem; height: 28rem;">
+                {% if cerveza.image %}
+                  <img src="{{cerveza.image.url}}" class="card-img-top" style="width: 35%; height: 50%;" alt="{{cerveza.nombre}}">
+                {% else %}
+                  <img src="..." class="card-img-top" style="width: 35%; height: 50%;" alt="{{cerveza.nombre}}">
+                {% endif %}
                   <div class="card-body">
                       <h5 class="card-title">{{cerveza.nombre}}</h5>
                       <p class="card-text">{{cerveza.descripcion}}</p>
                       <h5 class="card-title">{{cerveza.precio}}</h5>
-                      <a href="#" class="btn btn-primary">Ver Mas...</a>
+                      {% if request.user.is_staff %}
+                        <a href="{% url 'registrar-cerveza' %}" class="btn btn-primary">Ver Mas...</a>
+                        {% else %}
+                        <a href="{% url 'en-construccion' %}" class="btn btn-primary">Carrito</a>
+                      {% endif %}
+                      
                   </div>
               </div>
           </div>
