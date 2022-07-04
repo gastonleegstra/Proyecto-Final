@@ -1,12 +1,11 @@
-import re
-from token import RIGHTSHIFTEQUAL
-from urllib import request
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest
 from django.shortcuts import get_object_or_404, render,redirect
 from manage_product.forms import Cerveza_Form, Envase_Form, Categoria_Form, Brew_Form
 from manage_product.models import Cerveza, Envase, Categoria, Brew
+from users.models import User_profile
+from users.forms import User_profile_Form
 # Create your views here.
 
 def login_view(request):
@@ -37,6 +36,7 @@ def login_view(request):
         return render(request,'auth/login.html',context=context)
 
 def register_view(request):
+    cervezas = Cerveza.objects.filter(activo=True)
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -45,7 +45,7 @@ def register_view(request):
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
             login(request, user)
-            context= {'message': f'Usuario {username} creado exitosamente'}
+            context= {'message': f'Usuario {username} creado exitosamente','cervezas':cervezas}
             return render(request, 'index.html', context = context)
         else:
             errors = form.errors
@@ -78,9 +78,14 @@ def listar_cervezas(request):
 
 def gestion_peñon(request):
     cervezas = Cerveza.objects.all()
+    try:
+        perfil= User_profile.objects.get(user=request.user)
+    except:
+        perfil = None
     context = {
-        'cervezas' : cervezas
-    }
+            'cervezas' : cervezas,
+            'perfil':perfil,
+            }
     return render(request,'gestion_peñon.html',context)
 
 def busqueda_productos_view(request): 
@@ -271,3 +276,46 @@ def en_construccion(request):
     mensaje='Pagina en Construccion'
     context = {'mensaje':mensaje}
     return render(request,'en_construccion.html',context)
+
+def crear_profile(request):
+    if request.method=='GET':
+        form = User_profile_Form()
+        context = {
+        'form' : form,
+        }
+    else:
+        form = User_profile_Form(request.POST, request.FILES)
+        if form.is_valid():
+            nueva_perfil = User_profile.objects.create(
+                    user = request.user,
+                    phone = form.cleaned_data['phone'],
+                    nombre = form.cleaned_data['nombre'],
+                    apellido = form.cleaned_data['apellido'],
+                    correo = form.cleaned_data['correo'],
+                    profile_image = form.cleaned_data['profile_image']
+            )
+            return redirect('gestion-peñon')
+    return render(request,'auth/crear_profile.html',context)
+
+def edit_profile(request,pk):
+    profile = get_object_or_404(User_profile,user=request.user)
+    if request.method == 'GET':
+        form = User_profile_Form(instance=profile)
+        context = {'form':form,'perfil':profile}
+        return render (request,'auth/edit_profile.html',context)
+    else:
+        form = User_profile_Form(request.POST,request.FILES,instance=profile)
+        if form.is_valid():
+            profile.save()
+            return redirect('gestion-peñon')
+
+def eliminar_profile(request,pk):
+    profile = get_object_or_404(User_profile,user=request.user)
+    if request.method == 'GET':
+        mensaje = 'Esta por borrar el perfil'
+        form = User_profile_Form(instance=profile)
+        context = {'form':form,'mensaje':mensaje}
+        return render (request,'auth/del_profile.html',context)
+    else:
+        profile.delete()
+        return redirect('gestion-peñon')

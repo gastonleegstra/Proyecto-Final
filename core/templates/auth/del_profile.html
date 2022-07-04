@@ -1,0 +1,16 @@
+
+{% extends 'base_dashboard.html' %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+<div class="alert alert-danger" role="alert">
+  {{mensaje}}
+</div>
+    {% csrf_token %}
+    <h1>Perfil</h1>
+    <table>
+        {{form.as_table}}
+    </table>
+    <input class="btn btn-danger" type="submit" value="Eliminar">
+</form>
+{% endblock content %}
