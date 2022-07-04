@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from manage_product.views import crear_envase, crear_categoria, crear_cerveza, crear_brew, listar_cervezas,gestion_peñon,index, busqueda_productos_view, login_view,delete_categoria,edit_categoria,edit_brew,delete_brew,delete_envase,edit_envase,delete_cerveza,edit_cerveza,logout_view
+from manage_product.views import crear_envase, crear_categoria, crear_cerveza, crear_brew, listar_cervezas,gestion_peñon,index, busqueda_productos_view, login_view,delete_categoria,edit_categoria,edit_brew,delete_brew,delete_envase,edit_envase,delete_cerveza,edit_cerveza,logout_view, register_view
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -37,4 +37,5 @@ urlpatterns = [
     path('productos/busqueda_productos', busqueda_productos_view, name='busqueda_productos_view'),
     path('productos/login', login_view, name='login'),
     path('productos/logout', logout_view, name='logout'),
+    path('productos/register', register_view, name='register'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
