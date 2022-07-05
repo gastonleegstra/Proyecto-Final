@@ -7,7 +7,6 @@ Peñon
 
 {% block content %}
 {% include 'carrusel.html' %}
-{% if cervezas == None %}
 <section class="container">
     <div class="container">
         <div class="row">
@@ -35,7 +34,4 @@ Peñon
         </div>
     </div>    
   </section>
-  {% else %}
-    {% include 'busqueda_vacia.html' %}
-  {% endif %}
 {% endblock content %}
