@@ -10,8 +10,8 @@
 ![](https://img.shields.io/bower/v/editor.md.svg)
 
 ## Integrantes ##
-Gaston Leegstra
-Gabriel Rodriguez
+ - Gaston Leegstra
+ - Gabriel Rodriguez
 
 Busqueda: Se realiza en la pagina principal
 **link del video de la presentacion**
