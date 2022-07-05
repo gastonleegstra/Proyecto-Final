@@ -47,5 +47,5 @@ Para acceder a la Gestión:
       - 3.9.4  Registrar Cerveza.
     - 3.10 Por cada unos de los puntos mencionados en el 3.9, podemos crearlo, editar, eliminarlo. (para editarlo nos cargara los datos previamente ingresado al momento de crearlo)
     - 3.11 Si Seleecionamos una cerveza en el boton "Ver más" no lleva al sitio de Registro de cerveza.
-  - 4. Busqueda en la pagina principal:
+  - 4 Busqueda en la pagina principal:
     - 4.1 en el cuadro de dialogo "nombre del producto" y presionar el boton buscar.
