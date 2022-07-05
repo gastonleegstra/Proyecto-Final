@@ -92,8 +92,12 @@ def gestion_peñon(request):
 def busqueda_productos_view(request): 
     print(request.GET)
     cervezas = Cerveza.objects.filter(nombre__icontains = request.GET['search'])
-    context = {'cervezas':cervezas}
-    return render(request, 'busqueda_productos.html', context= context)    
+    print(len(cervezas))
+    if len(cervezas) == 0:
+        return redirect('index')
+    else:
+        context = {'cervezas':cervezas}
+        return render(request, 'busqueda_productos.html', context= context)    
 
 def crear_categoria(request):
     try:
